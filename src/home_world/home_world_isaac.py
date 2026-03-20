@@ -35,25 +35,8 @@ Author: Febin TJ  |  Isaac Sim 5.1 + ROS2 Humble
 import omni
 import omni.kit.commands
 import omni.usd
-from omni.isaac.core import SimulationApp
 
-# ─── If running from Script Editor (SimulationApp already started), 
-#     skip the SimulationApp block below. Isaac Sim's Script Editor 
-#     executes inside the already-running app context.
-try:
-    simulation_app
-    RUNNING_IN_SCRIPT_EDITOR = True
-except NameError:
-    RUNNING_IN_SCRIPT_EDITOR = False
-
-if not RUNNING_IN_SCRIPT_EDITOR:
-    simulation_app = SimulationApp({
-        "headless": False,
-        "width": 1920,
-        "height": 1080,
-    })
-
-# ─── Core imports (available after SimulationApp is started) ─────────────────
+# ─── Core imports (available natively in Script Editor) ─────────────────
 import numpy as np
 from pxr import Usd, UsdGeom, UsdPhysics, PhysxSchema, Gf, Sdf
 from omni.isaac.core import World
