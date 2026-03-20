@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>home_robot_bringup</name>
+  <version>1.0.0</version>
+  <description>Master launch files for autonomous home service robot</description>
+  <maintainer email="febintj007@gmail.com">Febin TJ</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>tiago_gazebo</exec_depend>
+  <exec_depend>tiago_2dnav</exec_depend>
+  <exec_depend>tiago_moveit_config</exec_depend>
+  <exec_depend>home_world</exec_depend>
+  <exec_depend>home_robot_navigation</exec_depend>
+  <exec_depend>task_coordinator</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

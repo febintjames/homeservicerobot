@@ -1,0 +1,57 @@
+# Predefined arm poses for TIAGo manipulation
+# Joint positions for the arm group
+# TIAGo arm joints: arm_1_joint through arm_7_joint
+
+arm_poses:
+  # Stowed/tucked position (arm folded close to body)
+  stow:
+    joint_names:
+      - arm_1_joint
+      - arm_2_joint
+      - arm_3_joint
+      - arm_4_joint
+      - arm_5_joint
+      - arm_6_joint
+      - arm_7_joint
+    positions: [0.20, -1.34, -0.20, 1.94, -1.57, 1.37, 0.0]
+
+  # Pre-grasp position (arm extended forward, ready to grasp)
+  pre_grasp:
+    joint_names:
+      - arm_1_joint
+      - arm_2_joint
+      - arm_3_joint
+      - arm_4_joint
+      - arm_5_joint
+      - arm_6_joint
+      - arm_7_joint
+    positions: [0.89, 0.10, 0.02, 0.05, 0.30, 0.03, 0.63]
+
+  # Grasp position (arm reaching down to table level)
+  grasp:
+    joint_names:
+      - arm_1_joint
+      - arm_2_joint
+      - arm_3_joint
+      - arm_4_joint
+      - arm_5_joint
+      - arm_6_joint
+      - arm_7_joint
+    positions: [0.89, 0.10, 0.02, 0.05, 0.30, 0.03, 0.63]
+
+  # Place position (arm extended to deliver object)
+  place:
+    joint_names:
+      - arm_1_joint
+      - arm_2_joint
+      - arm_3_joint
+      - arm_4_joint
+      - arm_5_joint
+      - arm_6_joint
+      - arm_7_joint
+    positions: [1.55, -0.70, 0.25, 0.80, 1.40, 1.2, 0.0]
+
+gripper:
+  open_position: 0.044   # Max open ~0.044m per finger
+  close_position: 0.0    # Fully closed
+  effort: 50.0           # Gripper force (N)
