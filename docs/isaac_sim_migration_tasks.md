@@ -1,0 +1,23 @@
+# Task: Migrate Cube Picking Simulation to Isaac Sim on GCP
+
+- [ ] Setup GCP Instance with GPU (NVIDIA T4/L4) [/]
+    - [ ] Request GPU quota if necessary
+    - [ ] Create Compute Engine instance with Ubuntu 22.04 LTS
+    - [ ] Install NVIDIA Drivers and Docker
+- [ ] Install & Configure Isaac Sim on GCP [ ]
+    - [ ] Use Isaac Automator or manual Docker setup
+    - [ ] Configure WebRTC/Native Streaming for remote view
+- [ ] Integrate TIAGo Robot in Isaac Sim [ ]
+    - [ ] Download/Reference `tiago_isaac` USD model
+    - [ ] Verify joint structure matches current URDF
+    - [ ] Enable ROS 2 Bridge (Humble)
+- [ ] Bridge Current ROS 2 Stack with Isaac Sim [ ]
+    - [ ] Map `/arm_controller` and `/gripper_controller` to Isaac Sim Action Servers
+    - [ ] Expose RGB/Depth cameras from Isaac Sim to ROS 2 topics
+    - [ ] Test `task_coordinator_node.py` with Isaac Sim backend
+- [ ] Optimize "Physical AI" (PhysX 5) for Grasping [ ]
+    - [ ] Tune contact parameters in PhysX
+    - [ ] (Optional) Explore Isaac Lab for RL-based grasping
+- [ ] Final Verification [ ]
+    - [ ] Successfully pick cube in Isaac Sim
+    - [ ] Verify full pipeline (Navigate -> Pick -> Deliver)

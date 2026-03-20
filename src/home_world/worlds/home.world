@@ -1,0 +1,483 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="home_world">
+
+    <!-- Physics -->
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <!-- Lighting -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- ============================================ -->
+    <!--              HOUSE STRUCTURE                  -->
+    <!-- ============================================ -->
+
+    <!-- Floor -->
+    <model name="floor">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box><size>12 8 0.02</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>12 8 0.02</size></box>
+          </geometry>
+          <material>
+            <ambient>0.85 0.82 0.75 1</ambient>
+            <diffuse>0.85 0.82 0.75 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+    </model>
+
+    <!-- ============================================ -->
+    <!--           OUTER WALLS                        -->
+    <!-- ============================================ -->
+
+    <!-- North Wall -->
+    <model name="wall_north">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>12 0.15 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>12 0.15 2.5</size></box></geometry>
+          <material>
+            <ambient>0.9 0.9 0.88 1</ambient>
+            <diffuse>0.9 0.9 0.88 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>0 4 1.25 0 0 0</pose>
+    </model>
+
+    <!-- South Wall -->
+    <model name="wall_south">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>12 0.15 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>12 0.15 2.5</size></box></geometry>
+          <material>
+            <ambient>0.9 0.9 0.88 1</ambient>
+            <diffuse>0.9 0.9 0.88 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>0 -4 1.25 0 0 0</pose>
+    </model>
+
+    <!-- East Wall -->
+    <model name="wall_east">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.15 8 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.15 8 2.5</size></box></geometry>
+          <material>
+            <ambient>0.9 0.9 0.88 1</ambient>
+            <diffuse>0.9 0.9 0.88 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>6 0 1.25 0 0 0</pose>
+    </model>
+
+    <!-- West Wall -->
+    <model name="wall_west">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.15 8 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.15 8 2.5</size></box></geometry>
+          <material>
+            <ambient>0.9 0.9 0.88 1</ambient>
+            <diffuse>0.9 0.9 0.88 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>-6 0 1.25 0 0 0</pose>
+    </model>
+
+    <!-- ============================================ -->
+    <!--    DIVIDER WALL (Kitchen | Living Room)      -->
+    <!--    With doorway opening in the middle         -->
+    <!-- ============================================ -->
+
+    <!-- Divider Wall - Left Section -->
+    <model name="divider_left">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.15 2.5 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.15 2.5 2.5</size></box></geometry>
+          <material>
+            <ambient>0.85 0.85 0.82 1</ambient>
+            <diffuse>0.85 0.85 0.82 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>1 -2.75 1.25 0 0 0</pose>
+    </model>
+
+    <!-- Divider Wall - Right Section -->
+    <model name="divider_right">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.15 2.5 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.15 2.5 2.5</size></box></geometry>
+          <material>
+            <ambient>0.85 0.85 0.82 1</ambient>
+            <diffuse>0.85 0.85 0.82 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>1 2.75 1.25 0 0 0</pose>
+    </model>
+
+    <!-- Divider Wall - Top (above doorway) -->
+    <model name="divider_top">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.15 3 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.15 3 0.5</size></box></geometry>
+          <material>
+            <ambient>0.85 0.85 0.82 1</ambient>
+            <diffuse>0.85 0.85 0.82 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>1 0 2.25 0 0 0</pose>
+    </model>
+
+    <!-- ============================================ -->
+    <!--              KITCHEN AREA (Right side x>1)   -->
+    <!-- ============================================ -->
+
+    <!-- Kitchen Table -->
+    <model name="kitchen_table">
+      <static>true</static>
+      <link name="link">
+        <!-- Table top -->
+        <collision name="top_collision">
+          <pose>0 0 0.375 0 0 0</pose>
+          <geometry><box><size>1.2 0.7 0.04</size></box></geometry>
+        </collision>
+        <visual name="top_visual">
+          <pose>0 0 0.375 0 0 0</pose>
+          <geometry><box><size>1.2 0.7 0.04</size></box></geometry>
+          <material>
+            <ambient>0.55 0.35 0.2 1</ambient>
+            <diffuse>0.6 0.4 0.25 1</diffuse>
+          </material>
+        </visual>
+        <!-- Leg 1 -->
+        <collision name="leg1_collision">
+          <pose>0.5 0.25 0.175 0 0 0</pose>
+          <geometry><box><size>0.05 0.05 0.35</size></box></geometry>
+        </collision>
+        <visual name="leg1_visual">
+          <pose>0.5 0.25 0.175 0 0 0</pose>
+          <geometry><box><size>0.05 0.05 0.35</size></box></geometry>
+          <material>
+            <ambient>0.45 0.3 0.15 1</ambient>
+            <diffuse>0.5 0.35 0.2 1</diffuse>
+          </material>
+        </visual>
+        <!-- Leg 2 -->
+        <collision name="leg2_collision">
+          <pose>-0.5 0.25 0.175 0 0 0</pose>
+          <geometry><box><size>0.05 0.05 0.35</size></box></geometry>
+        </collision>
+        <visual name="leg2_visual">
+          <pose>-0.5 0.25 0.175 0 0 0</pose>
+          <geometry><box><size>0.05 0.05 0.35</size></box></geometry>
+          <material>
+            <ambient>0.45 0.3 0.15 1</ambient>
+            <diffuse>0.5 0.35 0.2 1</diffuse>
+          </material>
+        </visual>
+        <!-- Leg 3 -->
+        <collision name="leg3_collision">
+          <pose>0.5 -0.25 0.175 0 0 0</pose>
+          <geometry><box><size>0.05 0.05 0.35</size></box></geometry>
+        </collision>
+        <visual name="leg3_visual">
+          <pose>0.5 -0.25 0.175 0 0 0</pose>
+          <geometry><box><size>0.05 0.05 0.35</size></box></geometry>
+          <material>
+            <ambient>0.45 0.3 0.15 1</ambient>
+            <diffuse>0.5 0.35 0.2 1</diffuse>
+          </material>
+        </visual>
+        <!-- Leg 4 -->
+        <collision name="leg4_collision">
+          <pose>-0.5 -0.25 0.175 0 0 0</pose>
+          <geometry><box><size>0.05 0.05 0.35</size></box></geometry>
+        </collision>
+        <visual name="leg4_visual">
+          <pose>-0.5 -0.25 0.175 0 0 0</pose>
+          <geometry><box><size>0.05 0.05 0.35</size></box></geometry>
+          <material>
+            <ambient>0.45 0.3 0.15 1</ambient>
+            <diffuse>0.5 0.35 0.2 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>3.5 0 0.01 0 0 0</pose>
+    </model>
+
+    <!-- Kitchen Counter (along east wall) -->
+    <model name="kitchen_counter">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.6 4 0.9</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.6 4 0.9</size></box></geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>5.6 0 0.45 0 0 0</pose>
+    </model>
+
+    <!-- Food Object (Red Cube on table) -->
+    <model name="red_cube">
+      <link name="link">
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00000667</ixx>
+            <iyy>0.00000667</iyy>
+            <izz>0.00000667</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry><box><size>0.05 0.05 0.05</size></box></geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1000.0</mu>
+                <mu2>1000.0</mu2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>100000</kp>
+                <kd>100</kd>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.003</min_depth>
+                <soft_cfm>0.01</soft_cfm>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 0.05 0.05</size></box></geometry>
+          <material>
+            <ambient>0.9 0.1 0.1 1</ambient>
+            <diffuse>1.0 0.2 0.2 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>3.5 0.1 0.43 0 0 0</pose>
+    </model>
+
+    <!-- Food Object (Green Cube on table) -->
+    <model name="green_cube">
+      <link name="link">
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00000667</ixx>
+            <iyy>0.00000667</iyy>
+            <izz>0.00000667</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry><box><size>0.05 0.05 0.05</size></box></geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1000.0</mu>
+                <mu2>1000.0</mu2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>100000</kp>
+                <kd>100</kd>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.003</min_depth>
+                <soft_cfm>0.01</soft_cfm>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 0.05 0.05</size></box></geometry>
+          <material>
+            <ambient>0.1 0.9 0.1 1</ambient>
+            <diffuse>0.2 1.0 0.2 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>3.5 0 0.43 0 0 0</pose>
+    </model>
+
+    <!-- Food Object (Blue Cube on table) -->
+    <model name="blue_cube">
+      <link name="link">
+        <inertial>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>0.00000667</ixx>
+            <iyy>0.00000667</iyy>
+            <izz>0.00000667</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry><box><size>0.05 0.05 0.05</size></box></geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1000.0</mu>
+                <mu2>1000.0</mu2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>100000</kp>
+                <kd>100</kd>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.003</min_depth>
+                <soft_cfm>0.01</soft_cfm>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 0.05 0.05</size></box></geometry>
+          <material>
+            <ambient>0.1 0.1 0.9 1</ambient>
+            <diffuse>0.2 0.2 1.0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>3.5 -0.1 0.43 0 0 0</pose>
+    </model>
+
+    <!-- ============================================ -->
+    <!--          LIVING ROOM AREA (Left side x<1)    -->
+    <!-- ============================================ -->
+
+    <!-- Sofa -->
+    <model name="sofa">
+      <static>true</static>
+      <link name="link">
+        <!-- Seat -->
+        <collision name="seat_collision">
+          <pose>0 0 0.22 0 0 0</pose>
+          <geometry><box><size>0.7 1.8 0.44</size></box></geometry>
+        </collision>
+        <visual name="seat_visual">
+          <pose>0 0 0.22 0 0 0</pose>
+          <geometry><box><size>0.7 1.8 0.44</size></box></geometry>
+          <material>
+            <ambient>0.2 0.3 0.5 1</ambient>
+            <diffuse>0.3 0.4 0.6 1</diffuse>
+          </material>
+        </visual>
+        <!-- Backrest -->
+        <collision name="back_collision">
+          <pose>-0.3 0 0.55 0 0 0</pose>
+          <geometry><box><size>0.12 1.8 0.65</size></box></geometry>
+        </collision>
+        <visual name="back_visual">
+          <pose>-0.3 0 0.55 0 0 0</pose>
+          <geometry><box><size>0.12 1.8 0.65</size></box></geometry>
+          <material>
+            <ambient>0.2 0.3 0.5 1</ambient>
+            <diffuse>0.3 0.4 0.6 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>-4.5 0 0.01 0 0 0</pose>
+    </model>
+
+    <!-- Coffee Table -->
+    <model name="coffee_table">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <pose>0 0 0.2 0 0 0</pose>
+          <geometry><box><size>0.6 1.0 0.04</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <pose>0 0 0.2 0 0 0</pose>
+          <geometry><box><size>0.6 1.0 0.04</size></box></geometry>
+          <material>
+            <ambient>0.55 0.35 0.2 1</ambient>
+            <diffuse>0.6 0.4 0.25 1</diffuse>
+          </material>
+        </visual>
+        <!-- Legs -->
+        <collision name="leg1"><pose>0.25 0.4 0.09 0 0 0</pose><geometry><box><size>0.04 0.04 0.18</size></box></geometry></collision>
+        <visual name="leg1_v"><pose>0.25 0.4 0.09 0 0 0</pose><geometry><box><size>0.04 0.04 0.18</size></box></geometry><material><ambient>0.45 0.3 0.15 1</ambient></material></visual>
+        <collision name="leg2"><pose>-0.25 0.4 0.09 0 0 0</pose><geometry><box><size>0.04 0.04 0.18</size></box></geometry></collision>
+        <visual name="leg2_v"><pose>-0.25 0.4 0.09 0 0 0</pose><geometry><box><size>0.04 0.04 0.18</size></box></geometry><material><ambient>0.45 0.3 0.15 1</ambient></material></visual>
+        <collision name="leg3"><pose>0.25 -0.4 0.09 0 0 0</pose><geometry><box><size>0.04 0.04 0.18</size></box></geometry></collision>
+        <visual name="leg3_v"><pose>0.25 -0.4 0.09 0 0 0</pose><geometry><box><size>0.04 0.04 0.18</size></box></geometry><material><ambient>0.45 0.3 0.15 1</ambient></material></visual>
+        <collision name="leg4"><pose>-0.25 -0.4 0.09 0 0 0</pose><geometry><box><size>0.04 0.04 0.18</size></box></geometry></collision>
+        <visual name="leg4_v"><pose>-0.25 -0.4 0.09 0 0 0</pose><geometry><box><size>0.04 0.04 0.18</size></box></geometry><material><ambient>0.45 0.3 0.15 1</ambient></material></visual>
+      </link>
+      <pose>-3.2 0 0.01 0 0 0</pose>
+    </model>
+
+    <!-- User delivery location marker (invisible, just for reference) -->
+    <!-- User location: x=-2.5 y=0 (in front of sofa, near coffee table) -->
+
+  </world>
+</sdf>

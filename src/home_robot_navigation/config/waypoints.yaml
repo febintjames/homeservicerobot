@@ -1,0 +1,28 @@
+# Navigation waypoints for home service robot
+# Coordinate system matches the home.world Gazebo file
+# Kitchen is right side (x > 1), Living room is left (x < 1)
+
+waypoints:
+  # Position in front of kitchen table (approach from doorway side)
+  kitchen_table:
+    x: 2.5
+    y: 0.0
+    yaw: 0.0  # Facing the table (towards +x)
+
+  # Position in front of sofa / coffee table (user delivery location)
+  user_location:
+    x: -2.5
+    y: 0.0
+    yaw: 3.14159  # Facing the sofa (towards -x)
+
+  # Doorway between rooms (intermediate waypoint)
+  doorway:
+    x: 0.5
+    y: 0.0
+    yaw: 0.0
+
+  # Robot home/rest position (living room corner)
+  home:
+    x: -3.0
+    y: -2.5
+    yaw: 0.0
