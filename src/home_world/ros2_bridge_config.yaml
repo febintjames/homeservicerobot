@@ -1,0 +1,129 @@
+# ROS2 Bridge Configuration for Isaac Sim
+# Home Service Robot — Tiago in Isaac Sim
+#
+# This file documents all topic/action mappings between Isaac Sim
+# and your ROS2 stack (Nav2 + MoveIt2 + task_coordinator).
+#
+# The Action Graph in home_world_isaac.py implements these automatically.
+# This YAML is a reference doc; it is NOT directly loaded by Isaac Sim.
+#
+# ─────────────────────────────────────────────────────────────────────────────
+
+ros2_bridge:
+
+  # ── PUBLISHERS (Isaac Sim → ROS2) ─────────────────────────────────────────
+  publishers:
+
+    # Robot joint positions (used by MoveIt2 + Nav2)
+    - isaac_prim:   "/World/TiagoRobot"
+      topic:        "/joint_states"
+      msg_type:     "sensor_msgs/JointState"
+      node_type:    "ROS2PublishJointState"
+      frame_id:     "base_footprint"
+
+    # Base odometry (used by Nav2 AMCL / localization)
+    - isaac_prim:   "/World/TiagoRobot"
+      topic:        "/mobile_base_controller/odom"
+      msg_type:     "nav_msgs/Odometry"
+      node_type:    "ROS2PublishOdometry"
+      frame_id:     "odom"
+      child_frame:  "base_footprint"
+
+    # Transform tree (mandatory for Nav2, MoveIt2)
+    - isaac_prim:   "/World/TiagoRobot"
+      topic:        "/tf"
+      msg_type:     "tf2_msgs/TFMessage"
+      node_type:    "ROS2PublishTransformTree"
+
+    # RGB Camera (head_front_camera) — used by food_detector.py for HSV detection
+    - isaac_prim:   "/World/TiagoRobot/head_front_camera_link"
+      topic:        "/head_front_camera/rgb/image_raw"
+      msg_type:     "sensor_msgs/Image"
+      node_type:    "ROS2CameraHelper"
+      type:         "rgb"
+      frame_id:     "head_front_camera_rgb_optical_frame"
+
+    # Depth Camera — used for 3D perception
+    - isaac_prim:   "/World/TiagoRobot/head_front_camera_link"
+      topic:        "/head_front_camera/depth/image_raw"
+      msg_type:     "sensor_msgs/Image"
+      node_type:    "ROS2CameraHelper"
+      type:         "depth"
+      frame_id:     "head_front_camera_depth_optical_frame"
+
+    # LiDAR laser scan — used by Nav2 for obstacle avoidance + SLAM
+    - isaac_prim:   "/World/TiagoRobot/base_laser_link"
+      topic:        "/scan_raw"
+      msg_type:     "sensor_msgs/LaserScan"
+      node_type:    "ROS2LidarHelper"
+      frame_id:     "base_laser_link"
+
+    # IMU data — optional, used by Nav2 EKF
+    - isaac_prim:   "/World/TiagoRobot/base_imu_link"
+      topic:        "/imu/data"
+      msg_type:     "sensor_msgs/Imu"
+      node_type:    "ROS2ImuSensor"
+      frame_id:     "base_imu_link"
+
+  # ── SUBSCRIBERS (ROS2 → Isaac Sim) ────────────────────────────────────────
+  subscribers:
+
+    # Base velocity commands from Nav2 (DWB controller)
+    - topic:        "/cmd_vel"
+      msg_type:     "geometry_msgs/Twist"
+      node_type:    "ROS2SubscribeTwist"
+      isaac_prim:   "/World/TiagoRobot"
+
+    # Arm joint trajectory from MoveIt2
+    - topic:        "/arm_controller/follow_joint_trajectory"
+      msg_type:     "control_msgs/FollowJointTrajectoryAction"
+      node_type:    "ROS2SubscribeJointAction"
+      isaac_prim:   "/World/TiagoRobot"
+
+    # Gripper control from MoveIt2
+    - topic:        "/gripper_controller/follow_joint_trajectory"
+      msg_type:     "control_msgs/FollowJointTrajectoryAction"
+      node_type:    "ROS2SubscribeJointAction"
+      isaac_prim:   "/World/TiagoRobot"
+
+    # Torso lift (used by task_coordinator to raise arm for reaching)
+    - topic:        "/torso_controller/follow_joint_trajectory"
+      msg_type:     "control_msgs/FollowJointTrajectoryAction"
+      node_type:    "ROS2SubscribeJointAction"
+      isaac_prim:   "/World/TiagoRobot"
+
+    # Head control (for camera pointing)
+    - topic:        "/head_controller/follow_joint_trajectory"
+      msg_type:     "control_msgs/FollowJointTrajectoryAction"
+      node_type:    "ROS2SubscribeJointAction"
+      isaac_prim:   "/World/TiagoRobot"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# OBJECT PRIMS (for grasping / scene service)
+# ─────────────────────────────────────────────────────────────────────────────
+scene_objects:
+  red_cube:
+    prim_path:   "/World/RedCube"
+    position:    [3.5, 0.1, 0.44]   # (x, y, z) in metres
+    size:        [0.05, 0.05, 0.05]
+    mass_kg:     0.05
+    color_rgb:   [1.0, 0.15, 0.15]
+
+  green_cube:
+    prim_path:   "/World/GreenCube"
+    position:    [3.5, 0.0, 0.44]
+    size:        [0.05, 0.05, 0.05]
+    mass_kg:     0.05
+    color_rgb:   [0.15, 1.0, 0.15]
+
+  blue_cube:
+    prim_path:   "/World/BlueCube"
+    position:    [3.5, -0.1, 0.44]
+    size:        [0.05, 0.05, 0.05]
+    mass_kg:     0.05
+    color_rgb:   [0.15, 0.15, 1.0]
+
+# Delivery target (in front of sofa, matches task_coordinator pose)
+delivery_pose:
+  position: [-2.5, 0.0, 0.0]
+  frame_id: "map"
